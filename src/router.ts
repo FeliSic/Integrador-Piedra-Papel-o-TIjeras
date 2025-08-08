@@ -19,7 +19,7 @@ const routes = [
 
 export function initRouter(container:Element){
   function goTo(path){
-  history.pushState({}, '', path)
+  location.hash = path;
   handleRoute(path)
   }
 
@@ -48,10 +48,10 @@ export function initRouter(container:Element){
     }
   }
 
-  handleRoute(location.pathname)
+  handleRoute(location.hash.slice(1) || '/'); // Usar hash aquí
 
-  window.onpopstate = () =>{
-  handleRoute(location.pathname);
+  window.onhashchange = () =>{
+  handleRoute(location.hash.slice(1));
   };
   
   return { goTo };
